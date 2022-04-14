@@ -56,18 +56,18 @@ class _LoginState extends State<Login> {
                         )
                       ),
                   ),
-                  //  Padding(
-                  //   padding: const EdgeInsets.only(top: 16, bottom: 10),
-                  //   child: ElevatedButton(
-                  //     child: const Text(
-                  //       "Entrar",
-                  //       style: TextStyle(color: Colors.white, fontSize: 20),
-                  //       ),
-                  //       child: Colors.green,
-                  //       padding: const EdgeInsets.fromLTRB(32, 16, 32, 16)
-                  //       onPressed:() {}
-                  //   ),
-                  // ),
+                  Padding(
+                   padding: const EdgeInsets.only(top: 16, bottom: 10),
+                   child: ElevatedButton(
+                     child: const Text(
+                       "Entrar",
+                       style: TextStyle(color: Colors.white, fontSize: 20),
+                       ),
+                       child: Colors.green,
+                       padding: const EdgeInsets.fromLTRB(32, 16, 32, 16)
+                       onPressed:() {}
+                   ),
+                 ),
               ],
             ),
           ),
