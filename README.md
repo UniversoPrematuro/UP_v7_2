@@ -23,14 +23,14 @@ Equipe Tecnologia
 
 
 
-## Getting Started
+### Getting Started
 
 Aqui começa a documentação do Projeto Universo Prematuro v2.
 
 - Começarei explicando as dependências, como instalar, atualizar e adicionar novos pacotes.
 Também irei disponibilizar uma breve descrição sobre como funciona cada dependência.
 
-# IMPORTANTE
+### IMPORTANTE
 - SEMPRE MANTER O AMBIENTE DE DESENVOLVIMENTO ("environment") ACIMA DO 2.12 PARA NÃO TER ERROS COM O NULL-SAFETY
 
 ## Dependências
