@@ -45,34 +45,34 @@ dependencies:
     sdk: flutter
   
 
-  bloc_pattern: "^3.0.0+1"
-  carousel_slider: "^4.0.0"
-  connectivity_plus: "^2.3.0"
-  cupertino_icons: "^1.0.4"
-  chewie: "^1.3.1"
-  charts_flutter: "^0.12.0"
-  dropdownfield2: "^1.0.6"
-  dropdown_formfield: "^0.1.4"
-  font_awesome_flutter: "^10.1.0"
-  flutter_form_builder: "^7.1.1"
-  flutter_launcher_icons: "^0.9.2"
-  firebase_messaging: "^11.2.12"
-  firebase_core: "^1.3.0"
-  firebase_auth: "^2.0.0"
-  image_picker: "^0.8.5"
-  image: "^3.1.3"
-  location: "^4.3.0"
-  rxdart: "^0.27.3"
-  mask_text_input_formatter: "^2.3.0"
-  provider: "^6.0.2"
-  path_provider: "^2.0.9"
-  sqflite: "^2.0.2"
-  shimmer: "^2.0.0"
-  thumbnailer: "^2.0.1"
-  url_launcher: "^6.0.20"
-  video_player: "^2.3.0"
-  transparent_image: "^2.0.0"
-  zoom_widget: "^0.2.1"
+  bloc_pattern: "^3.0.0+1"<br>
+  carousel_slider: "^4.0.0""<br>
+  connectivity_plus: "^2.3.0""<br>
+  cupertino_icons: "^1.0.4""<br>
+  chewie: "^1.3.1""<br>
+  charts_flutter: "^0.12.0""<br>
+  dropdownfield2: "^1.0.6""<br>
+  dropdown_formfield: "^0.1.4""<br>
+  font_awesome_flutter: "^10.1.0""<br>
+  flutter_form_builder: "^7.1.1""<br>
+  flutter_launcher_icons: "^0.9.2""<br>
+  firebase_messaging: "^11.2.12""<br>
+  firebase_core: "^1.3.0""<br>
+  firebase_auth: "^2.0.0""<br>
+  image_picker: "^0.8.5""<br>
+  image: "^3.1.3""<br>
+  location: "^4.3.0""<br>
+  rxdart: "^0.27.3""<br>
+  mask_text_input_formatter: "^2.3.0""<br>
+  provider: "^6.0.2""<br>
+  path_provider: "^2.0.9""<br>
+  sqflite: "^2.0.2""<br>
+  shimmer: "^2.0.0""<br>
+  thumbnailer: "^2.0.1""<br>
+  url_launcher: "^6.0.20""<br>
+  video_player: "^2.3.0""<br>
+  transparent_image: "^2.0.0""<br>
+  zoom_widget: "^0.2.1""<br>
 
 # Bloc_pattern:
 - BLoC significa Componentes de lógica de negócios. A essência do BLoC é que tudo no aplicativo deve ser representado como fluxo de eventos: widgets submetem eventos; outros widgets responderão. 
