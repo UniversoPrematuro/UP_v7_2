@@ -25,7 +25,49 @@ class _LoginState extends State<Login> {
                     width: 200,
                     height: 150,
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: TextField(
+                    autofocus: true,
+                    keyboardType: TextInputType.emailAddress,
+                    style: const TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        hintText: "E-mail",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        )
+                      ),
+                  ),
+                ),
+                TextField(
+                    keyboardType: TextInputType.text,
+                    style: const TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        hintText: "Senha",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        )
+                      ),
+                  ),
+                   Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 10),
+                    child: ElevatedButton(
+                      child: const Text(
+                        "Entrar",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        child: Colors.green,
+                        padding: const EdgeInsets.fromLTRB(32, 16, 32, 16)
+                        onPressed:() {}
+                    ),
+                  ),
               ],
             ),
           ),
