@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:universoprem_v7_2/Screen/register.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,8 +12,10 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // BACKGROUND
       body: Container(
-        decoration: const BoxDecoration(color: Color(0xff075E54)),
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -27,47 +30,69 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
+                  //INPUT EMAIL
                   padding: const EdgeInsets.only(bottom: 8),
                   child: TextField(
                     autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     style: const TextStyle(fontSize: 20),
                     decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         hintText: "E-mail",
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        )
-                      ),
+                          borderRadius: BorderRadius.circular(22),
+                        )),
                   ),
                 ),
                 TextField(
-                    keyboardType: TextInputType.text,
-                    style: const TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                        hintText: "Senha",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        )
-                      ),
-                  ),
-                   Padding(
+                  // INPUT SENHA
+                  keyboardType: TextInputType.text,
+                  style: const TextStyle(fontSize: 20),
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                      hintText: "Senha",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(22),
+                      )),
+                ),
+                Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(22)),
+                          backgroundColor:
+                              const Color.fromARGB(255, 101, 187, 88)),
                       child: const Text(
                         "Entrar",
                         style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        child: Colors.green,
-                        padding: const EdgeInsets.fromLTRB(32, 16, 32, 16)
-                        onPressed:() {}
+                      ),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.only(top: 55),
+                  child: Center(
+                    child: GestureDetector(
+                      child: const Text(
+                        "Não tem conta? Cadastre-se",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w900),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Register()));
+                      },
                     ),
                   ),
+                )
               ],
             ),
           ),
