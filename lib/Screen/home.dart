@@ -30,8 +30,7 @@ class Home extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Image.asset("images/logo/LogoPrinc.png"),
-                widthFactor: 250,
+                child: Image.asset("images/logo/logologin.png", width: 220,),
               )
             ],
           )),

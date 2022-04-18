@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:universoprem_v7_2/Screen/home.dart';
 import 'Screen/login.dart';
 
 void main() async {
@@ -13,9 +14,9 @@ void main() async {
       .set({"nome": "Gabriel"});
 
   runApp(MaterialApp(
-      home: const Login(),
+      home: const Home(),
       theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 239, 121, 91),
+          primaryColor: const Color.fromARGB(255, 255, 193, 143),
           colorScheme: ColorScheme.fromSwatch().copyWith(
               primary: const Color.fromARGB(255, 101, 187, 88),
               secondary: const Color.fromARGB(255, 255, 255, 255)),
