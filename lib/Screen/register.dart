@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:universoprem_v7_2/Screen/register.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // BACKGROUND
+      appBar: AppBar(
+        title: const Text("Cadastro"),
+        backgroundColor: const Color.fromARGB(255, 239, 121, 91),
+        elevation: 0,
+      ),
       body: Container(
         decoration:
             const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
@@ -71,28 +74,10 @@ class _LoginState extends State<Login> {
                           backgroundColor:
                               const Color.fromARGB(255, 101, 187, 88)),
                       child: const Text(
-                        "Entrar",
+                        "Cadastrar",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 55),
-                  child: Center(
-                    child: GestureDetector(
-                      child: const Text(
-                        "Não tem conta? Cadastre-se",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Register()));
-                      },
-                    ),
-                  ),
-                )
               ],
             ),
           ),
