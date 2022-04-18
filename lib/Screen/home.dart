@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:universoprem_v7_2/Screen/register.dart';
 
 import 'login.dart';
 
@@ -30,7 +31,21 @@ class Home extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
+                child: Image.asset("images/logo/LogoPrinc.png"),
                 widthFactor: 250,
+              ),
+              GestureDetector(
+                child: const Text(
+                  "Primeiro cadastro",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w900),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Register()));
+                },
               )
             ],
           )),
