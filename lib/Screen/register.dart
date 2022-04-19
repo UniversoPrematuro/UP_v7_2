@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Classes/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +24,11 @@ class _RegisterState extends State<Register> {
   final TextEditingController _controllerSenha =
       TextEditingController(text: "1234567");
 
-  set errorMessage(String errorMessage) {}
+  String get errorMessage => errorMessage;
+
+  set _errorMessage(String _errorMessage) {
+    _errorMessage = "";
+  }
 
   _validarCampos() {
     //Recupera dados dos campos
@@ -56,7 +61,7 @@ class _RegisterState extends State<Register> {
       }
     } else {
       setState(() {
-        errorMessage = "Preencha o Nome";
+        _errorMessage = "Preencha o Nome";
       });
     }
   }
@@ -69,14 +74,16 @@ class _RegisterState extends State<Register> {
             email: usuario.email, password: usuario.senha)
         .then((firebaseUser) {
       FirebaseFirestore db = FirebaseFirestore.instance;
-      db.collection("user").doc(firebaseUser.user?.uid).set(usuario.toMap());
+      db.collection("users").doc(firebaseUser.user?.uid).set(usuario.toMap());
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Home()));
     }).catchError((error) {
-      print("erro app: " + error.toString());
+      if (kDebugMode) {
+        print("erro app: " + error.toString());
+      }
       setState(() {
-        errorMessage =
+        _errorMessage =
             "Erro ao cadastrar usuário, verifique os campos e tente novamente!";
       });
     });
@@ -178,6 +185,12 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     )),
+                Center(
+                  child: Text(
+                    errorMessage,
+                    style: const TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                )
               ],
             ),
           ),
