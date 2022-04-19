@@ -30,7 +30,7 @@ class _RegisterState extends State<Register> {
     String nome = _controllerNome.text;
     String email = _controllerEmail.text;
     String senha = _controllerSenha.text;
-    String errorMessage = "";
+    String? _errorMessage = "";
 
     Usuario usuario = Usuario();
     usuario.nome = nome;
@@ -41,17 +41,17 @@ class _RegisterState extends State<Register> {
       if (email.isNotEmpty && email.contains("@")) {
         if (senha.isNotEmpty) {
           setState(() {
-            errorMessage = "";
+            _errorMessage = "";
           });
           _cadastrarUsuario(usuario);
         } else {
           setState(() {
-            errorMessage = "Preencha a senha!";
+            _errorMessage = "Preencha a senha!";
           });
         }
       } else {
         setState(() {
-          errorMessage = "Preencha o E-mail utilizando @";
+          _errorMessage = "Preencha o E-mail utilizando @";
         });
       }
     } else {
@@ -69,10 +69,7 @@ class _RegisterState extends State<Register> {
             email: usuario.email, password: usuario.senha)
         .then((firebaseUser) {
       FirebaseFirestore db = FirebaseFirestore.instance;
-      db
-          .collection("usuarios")
-          .doc(firebaseUser.user?.uid)
-          .set(usuario.toMap());
+      db.collection("user").doc(firebaseUser.user?.uid).set(usuario.toMap());
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Home()));

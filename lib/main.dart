@@ -2,16 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:universoprem_v7_2/Screen/home.dart';
-import 'Screen/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseFirestore.instance
-      .collection("users")
-      .doc("001")
-      .set({"nome": "Gabriel"});
+  FirebaseFirestore.instance.collection("users").doc().set({});
 
   runApp(MaterialApp(
       home: const Home(),
@@ -24,6 +20,8 @@ void main() async {
               style: TextButton.styleFrom(
             elevation: 20,
             shadowColor: Colors.black,
-          )) // Color Scheme
+          ) // Style From
+              ) // Color Scheme
+
           )));
 }
