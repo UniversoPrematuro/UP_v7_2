@@ -167,7 +167,9 @@ class _RegisterState extends State<Register> {
                 Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _validarCampos();
+                      },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(
