@@ -26,9 +26,7 @@ class _RegisterState extends State<Register> {
 
   String get errorMessage => errorMessage;
 
-  set _errorMessage(String _errorMessage) {
-    _errorMessage = "";
-  }
+  get sink => null;
 
   _validarCampos() {
     //Recupera dados dos campos
@@ -50,18 +48,16 @@ class _RegisterState extends State<Register> {
           });
           _cadastrarUsuario(usuario);
         } else {
-          setState(() {
-            _errorMessage = "Preencha a senha!";
-          });
+          sink.addError("Digite uma senha valida");
         }
       } else {
         setState(() {
-          _errorMessage = "Preencha o E-mail utilizando @";
+          _errorMessage = "Insira um e-mail válido!";
         });
       }
     } else {
       setState(() {
-        _errorMessage = "Preencha o Nome";
+        _errorMessage = "Insira um nome válido";
       });
     }
   }
@@ -83,7 +79,7 @@ class _RegisterState extends State<Register> {
         print("erro app: " + error.toString());
       }
       setState(() {
-        _errorMessage =
+        var _errorMessage =
             "Erro ao cadastrar usuário, verifique os campos e tente novamente!";
       });
     });
