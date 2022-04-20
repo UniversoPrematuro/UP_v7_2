@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -23,22 +23,19 @@ class _RegisterState extends State<Register> {
       TextEditingController(text: "gabrielnfa999@icloudcom");
   final TextEditingController _controllerSenha =
       TextEditingController(text: "1234567");
-
-  String get errorMessage => errorMessage;
-
-  get sink => null;
+  String _errorMessage = "";
 
   _validarCampos() {
     //Recupera dados dos campos
     String nome = _controllerNome.text;
     String email = _controllerEmail.text;
     String senha = _controllerSenha.text;
-    String? _errorMessage = "";
 
     Usuario usuario = Usuario();
     usuario.nome = nome;
     usuario.senha = senha;
     usuario.email = email;
+    var errorMessage = _errorMessage;
 
     if (nome.isNotEmpty) {
       if (email.isNotEmpty && email.contains("@")) {
@@ -48,16 +45,18 @@ class _RegisterState extends State<Register> {
           });
           _cadastrarUsuario(usuario);
         } else {
-          sink.addError("Digite uma senha valida");
+          setState(() {
+            _errorMessage = "Preencha a senha! digite mais de 6 caracteres";
+          });
         }
       } else {
         setState(() {
-          _errorMessage = "Insira um e-mail válido!";
+          _errorMessage = "Preencha o E-mail utilizando @";
         });
       }
     } else {
       setState(() {
-        _errorMessage = "Insira um nome válido";
+        _errorMessage = "Preencha o Nome";
       });
     }
   }
@@ -79,7 +78,7 @@ class _RegisterState extends State<Register> {
         print("erro app: " + error.toString());
       }
       setState(() {
-        var _errorMessage =
+        _errorMessage =
             "Erro ao cadastrar usuário, verifique os campos e tente novamente!";
       });
     });
@@ -183,7 +182,7 @@ class _RegisterState extends State<Register> {
                     )),
                 Center(
                   child: Text(
-                    errorMessage,
+                    _errorMessage,
                     style: const TextStyle(color: Colors.red, fontSize: 20),
                   ),
                 )
