@@ -35,13 +35,13 @@ class Home extends StatelessWidget {
                 widthFactor: 250,
               ),
               Padding(
-                  padding: const EdgeInsets.only(top: 55),
+                  padding: const EdgeInsets.only(top: 620, right: 230),
                   child: Center(
                     child: GestureDetector(
                       child: const Text(
-                        "Primeiro Cadastro",
+                        "Cadastre-se",
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
+                            color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20),
                       ),
                       onTap: () {
                         Navigator.push(

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Classes/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:universoprem_v7_2/Screen/profile.dart';
 
 import 'home.dart';
 
@@ -168,10 +169,11 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         _validarCampos();
+                        if(_validarCampos() == true){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Profile()));
+                                builder: (context) => const Profile()));}
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -187,7 +189,7 @@ class _RegisterState extends State<Register> {
                 Center(
                   child: Text(
                     _errorMessage,
-                    style: const TextStyle(color: Colors.red, fontSize: 20),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 )
               ],
