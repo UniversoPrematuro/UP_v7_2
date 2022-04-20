@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                   style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "Senha",
+                      hintText: "Senh",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
