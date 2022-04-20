@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
       // BACKGROUND
       body: Container(
         decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
+            const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(

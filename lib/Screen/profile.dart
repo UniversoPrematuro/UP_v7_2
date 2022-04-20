@@ -15,12 +15,12 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cadastro"),
-        backgroundColor: const Color.fromARGB(255, 239, 121, 91),
+        backgroundColor: const Color.fromARGB(255, 255, 193, 143),
         elevation: 0,
       ),
       body: Container(
         decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
+            const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
