@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
+
+import '../Classes/user.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -9,6 +12,67 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
+  String _mensagemErro = "";
+
+  _validarCampos() {
+    //Recupera dados dos campos
+    String email = _controllerEmail.text;
+    String senha = _controllerSenha.text;
+
+    if (email.isNotEmpty && email.contains("@")) {
+      if (senha.isNotEmpty) {
+        setState(() {
+          _mensagemErro = "";
+        });
+
+        Usuario usuario = Usuario();
+        usuario.email = email;
+        usuario.senha = senha;
+
+        _logarUsuario(usuario);
+      } else {
+        setState(() {
+          _mensagemErro = "Preencha a senha!";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Preencha o E-mail utilizando @";
+      });
+    }
+  }
+
+  _logarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth
+        .signInWithEmailAndPassword(
+            email: usuario.email, password: usuario.senha)
+        .then((firebaseUser) {
+      Navigator.pushReplacementNamed(context, "/home");
+    }).catchError((error) {
+      setState(() {
+        _mensagemErro =
+            "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!";
+      });
+    });
+  }
+
+  // Future _verificarUsuarioLogado() async {
+
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   //auth.signOut();
+
+  //   FirebaseUser usuarioLogado = await auth.currentUser();
+
+  //   if( usuarioLogado != null ){
+  //     Navigator.pushReplacementNamed(context, "/home");
+  //   }
+
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
