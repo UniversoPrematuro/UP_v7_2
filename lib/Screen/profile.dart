@@ -17,6 +17,12 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerNomeMae = TextEditingController();
+  final TextEditingController _controllerBirth = TextEditingController();
+  final TextEditingController _controllerGage = TextEditingController();
+  final TextEditingController _controllerGender = TextEditingController();
+  final TextEditingController _controllerUser = TextEditingController();
+
   late File _imagem;
   late String _idUsuarioLogado;
   bool _subindoImagem = false;
