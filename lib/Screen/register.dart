@@ -38,11 +38,11 @@ class _RegisterState extends State<Register> {
     usuario.email = email;
     var errorMessage = _errorMessage;
 
-    if (nome.isNotEmpty) {
+    if (nome.isNotEmpty && nome.length >= 3) {
       if (email.isNotEmpty && email.contains("@")) {
-        if (senha.isNotEmpty) {
+        if (senha.isNotEmpty && senha.length >= 5) {
           setState(() {
-            _errorMessage = "";
+            _errorMessage = "Usuário cadastrado com sucesso!";
           });
           _cadastrarUsuario(usuario);
         } else {
@@ -169,11 +169,20 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         _validarCampos();
+
+                        if (_validarCampos() == true) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
+                        }
+
                         if(_validarCampos() == true){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Profile()));}
+
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),

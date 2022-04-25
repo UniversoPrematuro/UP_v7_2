@@ -61,18 +61,16 @@ class _LoginState extends State<Login> {
     });
   }
 
-  // Future _verificarUsuarioLogado() async {
+  Future _verificarUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
 
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   //auth.signOut();
+    FirebaseUser usuarioLogado = auth.currentUser! as FirebaseUser;
 
-  //   FirebaseUser usuarioLogado = await auth.currentUser();
-
-  //   if( usuarioLogado != null ){
-  //     Navigator.pushReplacementNamed(context, "/home");
-  //   }
-
-  // }
+    if (usuarioLogado != null) {
+      Navigator.pushReplacementNamed(context, "/profile");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +116,7 @@ class _LoginState extends State<Login> {
                   style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "Senha",
+                      hintText: "Senh",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -171,3 +169,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+class FirebaseUser {}
