@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,25 +25,25 @@ class _ProfileState extends State<Profile> {
 
   late File _imagem;
   String _statusUpload = "Upload não iniciado";
-  String? _urlImagemRecuperada;
+  String? _urlImagemRecuperada = null;
   late String _idUsuarioLogado;
   final bool _subindoImagem = false;
 
   Future _recuperarImagem(bool daCamera) async {
     final ImagePicker _picker = ImagePicker();
-    File imagemSelecionada;
+    XFile imagemSelecionada;
     if (daCamera) {
       //camera
       imagemSelecionada =
-          (await _picker.pickImage(source: ImageSource.camera)) as File;
+          (await _picker.pickImage(source: ImageSource.camera)) as XFile;
     } else {
       //galeria
       imagemSelecionada =
-          (await _picker.pickImage(source: ImageSource.gallery)) as File;
+          (await _picker.pickImage(source: ImageSource.gallery)) as XFile;
     }
 
     setState(() {
-      _imagem = imagemSelecionada;
+      _imagem = imagemSelecionada as File;
     });
   }
 
@@ -52,7 +51,7 @@ class _ProfileState extends State<Profile> {
     //Referenciar arquivo
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference pastaRaiz = storage.ref();
-    Reference arquivo = pastaRaiz.child("fotos").child("foto1.jpg");
+    Reference arquivo = pastaRaiz.child("photos").child("baby.jpg");
 
     //Fazer upload da imagem
     UploadTask task = arquivo.putFile(_imagem);
@@ -74,9 +73,7 @@ class _ProfileState extends State<Profile> {
 
   Future _recuperarUrlImagem(TaskSnapshot taskSnapshot) async {
     String url = await taskSnapshot.ref.getDownloadURL();
-    if (kDebugMode) {
-      print("resultado url: " + url);
-    }
+    print("resultado url: " + url);
 
     setState(() {
       _urlImagemRecuperada = url;
@@ -84,11 +81,43 @@ class _ProfileState extends State<Profile> {
   }
 
   _atualizarNomeFirestore() {
-    String nome = _controllerNome.text;
+    String name = _controllerNome.text;
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    Map<String, dynamic> dadosAtualizar = {"nome": nome};
+    Map<String, dynamic> dadosAtualizar = {"name": name};
 
+    db.collection("users").doc(_idUsuarioLogado).update(dadosAtualizar);
+  }
+
+  _atualizarNomeMae() {
+    String nomeMae = _controllerNomeMae.text;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> dadosAtualizar = {"mother": nomeMae};
+    db.collection("users").doc(_idUsuarioLogado).update(dadosAtualizar);
+  }
+
+  _atualizarBirth() {
+    String birth = _controllerBirth.text;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> dadosAtualizar = {"birth": birth};
+    db.collection("users").doc(_idUsuarioLogado).update(dadosAtualizar);
+  }
+
+  _atualizarGender() {
+    String gender = _controllerGender.text;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> dadosAtualizar = {"gender": gender};
+    db.collection("users").doc(_idUsuarioLogado).update(dadosAtualizar);
+  }
+
+  _registerData() {
+    String registerData = DateTime.now().toString();
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> dadosAtualizar = {"Register": registerData};
     db.collection("users").doc(_idUsuarioLogado).update(dadosAtualizar);
   }
 
@@ -110,7 +139,7 @@ class _ProfileState extends State<Profile> {
         await db.collection("users").doc(_idUsuarioLogado).get();
 
     Map<String, dynamic> dados = snapshot.data as Map<String, dynamic>;
-    _controllerNome.text = dados["nome"];
+    _controllerNome.text = dados["name"];
 
     if (dados["urlImagem"] != null) {
       _urlImagemRecuperada = dados["urlImagem"];
@@ -143,7 +172,6 @@ class _ProfileState extends State<Profile> {
                 ),
                 CircleAvatar(
                     radius: 100,
-                    backgroundColor: Colors.grey,
                     backgroundImage: _urlImagemRecuperada != null
                         ? NetworkImage(_urlImagemRecuperada!)
                         : null),
@@ -171,13 +199,61 @@ class _ProfileState extends State<Profile> {
                     autofocus: true,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(fontSize: 20),
-                    /*onChanged: (texto){
-                      _atualizarNomeFirestore(texto);
-                    },*/
                     decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         hintText: "Nome",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: TextField(
+                    controller: _controllerNomeMae,
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    style: const TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        hintText: "Mãe",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: TextField(
+                    controller: _controllerBirth,
+                    autofocus: true,
+                    keyboardType: TextInputType.datetime,
+                    style: const TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        hintText: "Data de Nascimento",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: TextField(
+                    controller: _controllerGender,
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    style: const TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        hintText: "Sexo",
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -193,6 +269,9 @@ class _ProfileState extends State<Profile> {
                     ),
                     onPressed: () {
                       _atualizarNomeFirestore();
+                      _atualizarBirth();
+                      _atualizarNomeMae();
+                      _atualizarGender();
                     },
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
