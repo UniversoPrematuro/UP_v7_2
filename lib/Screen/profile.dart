@@ -1,7 +1,8 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unnecessary_null_comparison, unused_element
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,65 +25,58 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _controllerUser = TextEditingController();
 
   late File _imagem;
-  late String _idUsuarioLogado;
-  bool _subindoImagem = false;
+  String _statusUpload = "Upload não iniciado";
   String? _urlImagemRecuperada;
+  late String _idUsuarioLogado;
+  final bool _subindoImagem = false;
 
-  Future _recuperarImagem(String origemImagem) async {
+  Future _recuperarImagem(bool daCamera) async {
     final ImagePicker _picker = ImagePicker();
-
-    File? imagemSelecionada;
-    switch (origemImagem) {
-      case "camera":
-        imagemSelecionada =
-            (await _picker.pickImage(source: ImageSource.camera) as File);
-        break;
-      case "galeria":
-        imagemSelecionada =
-            (await _picker.pickImage(source: ImageSource.gallery)) as File;
-        break;
+    File imagemSelecionada;
+    if (daCamera) {
+      //camera
+      imagemSelecionada =
+          (await _picker.pickImage(source: ImageSource.camera)) as File;
+    } else {
+      //galeria
+      imagemSelecionada =
+          (await _picker.pickImage(source: ImageSource.gallery)) as File;
     }
 
     setState(() {
-      _imagem = imagemSelecionada!;
-      if (_imagem != null) {
-        _subindoImagem = true;
-        _uploadImagem();
-      }
+      _imagem = imagemSelecionada;
     });
   }
 
   Future _uploadImagem() async {
+    //Referenciar arquivo
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference pastaRaiz = storage.ref();
-    Reference arquivo =
-        pastaRaiz.child("perfil").child(_idUsuarioLogado + ".jpg");
+    Reference arquivo = pastaRaiz.child("fotos").child("foto1.jpg");
 
-    //Upload da imagem
+    //Fazer upload da imagem
     UploadTask task = arquivo.putFile(_imagem);
 
     //Controlar progresso do upload
-    // task.snapshotEvents.listen((StorageTaskEvent storageEvent) {
-    //   if (storageEvent.type == StorageTaskEventType.progress) {
-    //     setState(() {
-    //       _subindoImagem = true;
-    //     });
-    //   } else if (storageEvent.type == StorageTaskEventType.success) {
-    //     setState(() {
-    //       _subindoImagem = false;
-    //     });
-    //   }
-    // });
-
-    //Recuperar url da imagem
-    task.then((TaskSnapshot snapshot) {
-      _recuperarUrlImagem(snapshot);
+    task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
+      if (taskSnapshot.state == TaskState.running) {
+        setState(() {
+          _statusUpload = "Em progresso";
+        });
+      } else if (taskSnapshot.state == TaskState.success) {
+        _recuperarUrlImagem(taskSnapshot);
+        setState(() {
+          _statusUpload = "Upload realizado com sucesso!";
+        });
+      }
     });
   }
 
-  Future _recuperarUrlImagem(TaskSnapshot snapshot) async {
-    String url = await snapshot.ref.getDownloadURL();
-    _atualizarUrlImagemFirestore(url);
+  Future _recuperarUrlImagem(TaskSnapshot taskSnapshot) async {
+    String url = await taskSnapshot.ref.getDownloadURL();
+    if (kDebugMode) {
+      print("resultado url: " + url);
+    }
 
     setState(() {
       _urlImagemRecuperada = url;
@@ -169,13 +163,13 @@ class _ProfileState extends State<Profile> {
                     TextButton(
                       child: const Text("Câmera"),
                       onPressed: () {
-                        _recuperarImagem("camera");
+                        _recuperarImagem(_subindoImagem);
                       },
                     ),
                     TextButton(
                       child: const Text("Galeria"),
                       onPressed: () {
-                        _recuperarImagem("galeria");
+                        _recuperarImagem(_subindoImagem);
                       },
                     )
                   ],

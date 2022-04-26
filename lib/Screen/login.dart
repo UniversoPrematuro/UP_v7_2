@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
+import 'profile.dart';
 
 import '../Classes/user.dart';
 
@@ -116,7 +119,7 @@ class _LoginState extends State<Login> {
                   style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "Senh",
+                      hintText: "Senha",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -127,10 +130,19 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
+
+                        if (_validarCampos() == true) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
+                        }
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Profile()));
+
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -143,24 +155,24 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 55),
-                  child: Center(
-                    child: GestureDetector(
-                      child: const Text(
-                        "Não tem conta? Cadastre-se",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Register()));
-                      },
-                    ),
-                  ),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 55),
+                //   child: Center(
+                //     child: GestureDetector(
+                //       child: const Text(
+                //         "Não tem conta? Cadastre-se",
+                //         style: TextStyle(
+                //             color: Colors.white, fontWeight: FontWeight.w900),
+                //       ),
+                //       onTap: () {
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => const Register()));
+                //       },
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),
