@@ -31,27 +31,32 @@ class Home extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Image.asset("images/logo/logologin.png", width: 220,),
+                child: Image.asset(
+                  "images/logo/logologin.png",
+                  width: 220,
+                ),
                 widthFactor: 250,
               ),
               Padding(
-                  padding: const EdgeInsets.only(top: 55),
-                  child: Center(
-                    child: GestureDetector(
-                      child: const Text(
-                        "Primeiro Cadastro",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Register()));
-                      },
+                padding: const EdgeInsets.only(top: 55),
+                child: Center(
+                  child: GestureDetector(
+                    child: const Text(
+                      "Primeiro Cadastro",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 22),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Register()));
+                    },
                   ),
-                )
+                ),
+              )
             ],
           )),
     );
