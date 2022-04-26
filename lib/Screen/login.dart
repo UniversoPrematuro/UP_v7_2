@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
 import 'profile.dart';
 
@@ -80,7 +81,7 @@ class _LoginState extends State<Login> {
       // BACKGROUND
       body: Container(
         decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
+            const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -129,12 +130,19 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
+
                         if (_validarCampos() == true) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
                         }
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()));
+
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),

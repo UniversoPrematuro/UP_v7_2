@@ -127,9 +127,19 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: const Text("Editar Perfil"),
       ),
       body: Container(
+
+        title: const Text("Cadastro"),
+        backgroundColor: const Color.fromARGB(255, 255, 193, 143),
+        elevation: 0,
+      ),
+      body: Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
+
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(

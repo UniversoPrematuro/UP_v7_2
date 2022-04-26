@@ -90,12 +90,12 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cadastro"),
-        backgroundColor: const Color.fromARGB(255, 239, 121, 91),
+        backgroundColor: const Color.fromARGB(255, 255, 193, 143),
         elevation: 0,
       ),
       body: Container(
         decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 239, 121, 91)),
+            const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -169,12 +169,20 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         _validarCampos();
+
                         if (_validarCampos() == true) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
                         }
+
+                        if(_validarCampos() == true){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()));}
+
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -190,7 +198,7 @@ class _RegisterState extends State<Register> {
                 Center(
                   child: Text(
                     _errorMessage,
-                    style: const TextStyle(color: Colors.red, fontSize: 20),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 )
               ],
