@@ -1,7 +1,11 @@
+// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
+import 'edit_profile.dart';
+import 'profile.dart';
 
 import '../Classes/user.dart';
 
@@ -51,7 +55,7 @@ class _LoginState extends State<Login> {
     auth
         .signInWithEmailAndPassword(
             email: usuario.email, password: usuario.senha)
-        .then((firebaseUser) {
+        .then((User) {
       Navigator.pushReplacementNamed(context, "/profile");
     }).catchError((error) {
       setState(() {
@@ -61,18 +65,19 @@ class _LoginState extends State<Login> {
     });
   }
 
-  // Future _verificarUsuarioLogado() async {
+  Future _verificarUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
 
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   //auth.signOut();
+    User usuarioLogado = auth.currentUser!;
 
-  //   FirebaseUser usuarioLogado = await auth.currentUser();
-
-  //   if( usuarioLogado != null ){
-  //     Navigator.pushReplacementNamed(context, "/home");
-  //   }
-
-  // }
+    if (usuarioLogado != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Register()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,10 +134,13 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()));
+
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
+                        
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -145,24 +153,24 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 55),
-                  child: Center(
-                    child: GestureDetector(
-                      child: const Text(
-                        "Não tem conta? Cadastre-se",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w900),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Register()));
-                      },
-                    ),
-                  ),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 55),
+                //   child: Center(
+                //     child: GestureDetector(
+                //       child: const Text(
+                //         "Não tem conta? Cadastre-se",
+                //         style: TextStyle(
+                //             color: Colors.white, fontWeight: FontWeight.w900),
+                //       ),
+                //       onTap: () {
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => const Register()));
+                //       },
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),
@@ -171,3 +179,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+
