@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Classes/user.dart';
@@ -154,13 +155,6 @@ class _RegisterState extends State<Register> {
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
                         }
-
-                        if(_validarCampos() == true){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()));}
-
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),

@@ -7,6 +7,15 @@ import 'login.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
+  // final _controller = VideoPlayerController.network(
+  //       'images/logo/Logomov.mp3')
+  //     ..initialize().then((_) {
+  //       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //       setState(() {
+
+  //       });
+  //     });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +42,8 @@ class Home extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: Image.asset(
-                  "images/logo/logologin.png",
-                  width: 220,
+                  "images/logo/LogoPrinc.png",
+                  width: 230,
                 ),
               ),
               Padding(

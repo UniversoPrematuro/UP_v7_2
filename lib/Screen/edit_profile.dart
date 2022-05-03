@@ -21,13 +21,13 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _controllerGage = TextEditingController();
   final TextEditingController _controllerGender = TextEditingController();
 
-  late File _imagem;
+  File? _imagem;
   late String _idLogged;
   bool _statusUpload = false;
   late String urlRec;
 
   Future _recuperarImagem(origemImagem) async {
-    late File imagemSelec;
+    File? imagemSelec;
 
     final ImagePicker _picker = ImagePicker();
     switch (origemImagem) {
@@ -51,7 +51,7 @@ class _EditProfileState extends State<EditProfile> {
     Reference pastaRaiz = storage.ref();
     Reference arquivo = pastaRaiz.child("perfil").child(_idLogged + "jpg");
     //upload image
-    UploadTask task = arquivo.putFile(_imagem);
+    UploadTask task = arquivo.putFile(_imagem!);
 
     //controlar prog
     task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
@@ -85,7 +85,7 @@ class _EditProfileState extends State<EditProfile> {
     DocumentSnapshot snapshot =
         await db.collection("users").doc(_idLogged).get();
 
-    Map<String, dynamic> dados = snapshot.data as Map<String, dynamic>;
+    Map<String, dynamic>? dados = snapshot.data as Map<String, dynamic>;
     _controllerNome.text = dados["nome"];
     if (dados["urlImg"] != null) {
       urlRec = dados["urlImg"];
@@ -95,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
   _atualizarUrlImg(String url) {
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    Map<String, dynamic> dadosAtt = {"urlImg": url};
+    Map<String, dynamic>? dadosAtt = {"urlImg": url};
 
     db.collection("users").doc(_idLogged).update(dadosAtt);
   }
@@ -126,24 +126,24 @@ class _EditProfileState extends State<EditProfile> {
                       ? const CircularProgressIndicator()
                       : Container(),
                 ),
-                CircleAvatar(
-                    radius: 100,
-                    backgroundColor: Colors.grey,
-                    backgroundImage:
-                        urlRec != null ? NetworkImage(urlRec) : null),
+                // CircleAvatar(
+                //     radius: 100,
+                //     backgroundColor: Colors.grey,
+                //     backgroundImage:
+                //         urlRec != null ? NetworkImage(urlRec) : null),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextButton(
                       child: const Text("Câmera"),
                       onPressed: () {
-                        _recuperarImagem("camera");
+                        // _recuperarImagem("camera");
                       },
                     ),
                     TextButton(
                       child: const Text("Galeria"),
                       onPressed: () {
-                        _recuperarImagem("galeria");
+                        // _recuperarImagem("galeria");
                       },
                     )
                   ],
