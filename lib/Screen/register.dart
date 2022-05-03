@@ -170,11 +170,7 @@ class _RegisterState extends State<Register> {
                       onPressed: () {
                         _validarCampos();
 
-                        if (_validarCampos() == true) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()));
+                      
                         }
 
                         if(_validarCampos() == true){
@@ -182,6 +178,10 @@ class _RegisterState extends State<Register> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Profile()));}
+
+=======
+                          Navigator.pushReplacementNamed(context, "/editprofile");
+                        }
 
                       },
                       style: TextButton.styleFrom(

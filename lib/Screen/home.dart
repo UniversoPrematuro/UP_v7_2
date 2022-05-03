@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
 
+
 import 'login.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
+
+
+  // final _controller = VideoPlayerController.network(
+  //       'images/logo/Logomov.mp3')
+  //     ..initialize().then((_) {
+  //       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //       setState(() {
+          
+  //       });
+  //     });
+  
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +44,7 @@ class Home extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Image.asset(
-                  "images/logo/logologin.png",
-                  width: 220,
-                ),
-
-                child: Image.asset("images/logo/LogoPrinc.png", width: 230,),
-
-                widthFactor: 250,
-                
+                child: Image.asset("images/logo/LogoPrinc.png", width: 230,),               
               ),
               Padding(
 

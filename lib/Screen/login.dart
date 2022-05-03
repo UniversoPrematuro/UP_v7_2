@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
+
 import 'profile.dart';
 
 import '../Classes/user.dart';
@@ -54,7 +55,7 @@ class _LoginState extends State<Login> {
     auth
         .signInWithEmailAndPassword(
             email: usuario.email, password: usuario.senha)
-        .then((firebaseUser) {
+        .then((User) {
       Navigator.pushReplacementNamed(context, "/profile");
     }).catchError((error) {
       setState(() {
@@ -68,12 +69,8 @@ class _LoginState extends State<Login> {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
 
-    FirebaseUser usuarioLogado = auth.currentUser! as FirebaseUser;
 
-    if (usuarioLogado != null) {
-      Navigator.pushReplacementNamed(context, "/profile");
-    }
-  }
+    
 
   @override
   Widget build(BuildContext context) {
@@ -132,18 +129,15 @@ class _LoginState extends State<Login> {
                       onPressed: () {
 
                         if (_validarCampos() == true) {
+
+
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
-                        }
+                        }                      
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()));
-
-                      },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(
@@ -182,4 +176,4 @@ class _LoginState extends State<Login> {
   }
 }
 
-class FirebaseUser {}
+
