@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
-import 'edit_profile.dart';
+
 import 'profile.dart';
 
 import '../Classes/user.dart';
@@ -69,15 +69,8 @@ class _LoginState extends State<Login> {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
 
-    User usuarioLogado = auth.currentUser!;
 
-    if (usuarioLogado != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Register()));
-    }
-  }
+    
 
   @override
   Widget build(BuildContext context) {
@@ -135,13 +128,16 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       onPressed: () {
 
+                        if (_validarCampos() == true) {
+
+
 
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
-                        
-                      },
+                        }                      
+
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(

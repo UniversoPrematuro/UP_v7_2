@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -23,7 +24,9 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _controllerGender = TextEditingController();
   final TextEditingController _controllerUser = TextEditingController();
 
+
   
+ 
 
   File? _imagem;
   late String _idLogged;
@@ -113,21 +116,34 @@ class _ProfileState extends State<Profile> {
      db.collection("users").doc(_idLogged).update(dadosAtualizar);
    }
 
+
   @override
   void initState() {
     super.initState();
-    // _recuperarDados();
+
+    _recuperarDadosUsuario();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+
+        title: const Text("Editar Perfil"),
+      ),
+      body: Container(
+
+        title: const Text("Cadastro"),
+        backgroundColor: const Color.fromARGB(255, 255, 193, 143),
+        elevation: 0,
+
         title: const Text("Editar Perfil"),
       ),
       body: Container(
         decoration:
             const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
+
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -135,27 +151,39 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.all(16),
-                   child: _statusUpload
-                       ? const CircularProgressIndicator()
-                       : Container(),
+
+                  child: _subindoImagem
+                      ? const CircularProgressIndicator()
+                      : Container(),
                 ),
                  CircleAvatar(
                      radius: 100,
                      backgroundImage: _imagem != null
                          ? NetworkImage(_recuperarURL(_atualizarUrlImg(urlRec)))
                          : null),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextButton(
                       child: const Text("Câmera"),
                       onPressed: () {
+
+                       
+
                         _recuperarImagem("camera");
+
                       },
                     ),
                     TextButton(
                       child: const Text("Galeria"),
                       onPressed: () {
+
+                        _recuperarImagem(_subindoImagem);
+                      },
+                    )
+                  ],
+
                         _recuperarImagem("galeria");
                       },
                     )
@@ -177,14 +205,22 @@ class _ProfileState extends State<Profile> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32))),
                   ),
+
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: TextField(
+
+                    controller: _controllerNome,
+=======
                     controller: _controllerNomeMae,
+
                     autofocus: true,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(fontSize: 20),
+                    /*onChanged: (texto){
+                      _atualizarNomeFirestore(texto);
+                    },*/
                     decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -196,6 +232,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
+
+=======
                   padding: const EdgeInsets.only(bottom: 8),
                   child: TextField(
                     controller: _controllerBirth,
@@ -230,6 +268,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
+
                   padding: const EdgeInsets.only(top: 16, bottom: 10),
                   child: ElevatedButton(
                     child: const Text(
@@ -237,6 +276,8 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: () {
+                      _atualizarNomeFirestore();
+=======
                       _atualizarNome();
                       // _atualizarBirth();
                       // _atualizarNomeMae();
