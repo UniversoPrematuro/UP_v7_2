@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Classes/user.dart';
@@ -18,12 +19,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   //Controladores
-  final TextEditingController _controllerNome =
-      TextEditingController(text: "Gabriel");
-  final TextEditingController _controllerEmail =
-      TextEditingController(text: "gabrielnfa999@icloudcom");
-  final TextEditingController _controllerSenha =
-      TextEditingController(text: "1234567");
+  final TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
   String _errorMessage = "";
 
   _validarCampos() {
@@ -110,25 +108,6 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  //INPUT NOME
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: TextField(
-                    controller: _controllerNome,
-                    autofocus: true,
-                    keyboardType: TextInputType.emailAddress,
-                    style: const TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                        hintText: "Nome",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(22),
-                        )),
-                  ),
-                ),
-                Padding(
                   //INPUT EMAIL
                   padding: const EdgeInsets.only(bottom: 8),
                   child: TextField(
@@ -170,19 +149,12 @@ class _RegisterState extends State<Register> {
                       onPressed: () {
                         _validarCampos();
 
-                      
+                        if (_validarCampos() == true) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
                         }
-
-                        if(_validarCampos() == true){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()));}
-
-=======
-                          Navigator.pushReplacementNamed(context, "/editprofile");
-                        }
-
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),

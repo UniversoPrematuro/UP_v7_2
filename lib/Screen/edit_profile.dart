@@ -21,91 +21,90 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _controllerGage = TextEditingController();
   final TextEditingController _controllerGender = TextEditingController();
 
-  // File? _imagem;
-  // late String _idLogged;
-   bool _statusUpload = false;
-  // late String urlRec;
+  File? _imagem;
+  late String _idLogged;
+  bool _statusUpload = false;
+  late String urlRec;
 
-  // Future _recuperarImagem(origemImagem) async {
-    
-  //   File? imagemSelec;
+  Future _recuperarImagem(origemImagem) async {
+    File? imagemSelec;
 
-  //   final ImagePicker _picker = ImagePicker();
-  //   switch (origemImagem) {
-  //     case "camera":
-  //       imagemSelec =
-  //           (await _picker.pickImage(source: ImageSource.camera)) as File;
-  //       break;
-  //     case "galeria":
-  //       imagemSelec =
-  //           (await _picker.pickImage(source: ImageSource.gallery)) as File;
-  //       break;
-  //   }
-  //   setState(() {
-  //     _imagem = imagemSelec;
-  //     _uploadImage();
-  //   });
-  // }
+    final ImagePicker _picker = ImagePicker();
+    switch (origemImagem) {
+      case "camera":
+        imagemSelec =
+            (await _picker.pickImage(source: ImageSource.camera)) as File;
+        break;
+      case "galeria":
+        imagemSelec =
+            (await _picker.pickImage(source: ImageSource.gallery)) as File;
+        break;
+    }
+    setState(() {
+      _imagem = imagemSelec;
+      _uploadImage();
+    });
+  }
 
-  // Future _uploadImage() async {
-  //   FirebaseStorage storage = FirebaseStorage.instance;
-  //   Reference pastaRaiz = storage.ref();
-  //   Reference arquivo = pastaRaiz.child("perfil").child(_idLogged + "jpg");
-  //   //upload image
-  //   UploadTask task = arquivo.putFile(_imagem!);
+  Future _uploadImage() async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference pastaRaiz = storage.ref();
+    Reference arquivo = pastaRaiz.child("perfil").child(_idLogged + "jpg");
+    //upload image
+    UploadTask task = arquivo.putFile(_imagem!);
 
-  //   //controlar prog
-  //   task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
-  //     if (taskSnapshot.state == TaskState.running) {
-  //       setState(() {
-  //         _statusUpload = true;
-  //       });
-  //     } else if (taskSnapshot.state == TaskState.success) {
-  //       _recuperarImagem(taskSnapshot);
-  //       setState(() {
-  //         _statusUpload = false;
-  //       });
-  //     }
-  //   });
-  // }
+    //controlar prog
+    task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
+      if (taskSnapshot.state == TaskState.running) {
+        setState(() {
+          _statusUpload = true;
+        });
+      } else if (taskSnapshot.state == TaskState.success) {
+        _recuperarImagem(taskSnapshot);
+        setState(() {
+          _statusUpload = false;
+        });
+      }
+    });
+  }
 
-  // Future _recuperarURL(TaskSnapshot taskSnapshot) async {
-  //   String url = await taskSnapshot.ref.getDownloadURL();
-  //   _atualizarUrlImg(url);
-  //   setState(() {
-  //     urlRec = url;
-  //   });
-  // }
+  Future _recuperarURL(TaskSnapshot taskSnapshot) async {
+    String url = await taskSnapshot.ref.getDownloadURL();
+    _atualizarUrlImg(url);
+    setState(() {
+      urlRec = url;
+    });
+  }
 
-  // _recuperarDados() async {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   User logged = (auth.currentUser) as User;
-  //   _idLogged = logged.uid;
+  _recuperarDados() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User logged = (auth.currentUser) as User;
+    _idLogged = logged.uid;
 
-  //   FirebaseFirestore db = FirebaseFirestore.instance;
-  //   DocumentSnapshot snapshot =
-  //       await db.collection("users").doc(_idLogged).get();
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot =
+        await db.collection("users").doc(_idLogged).get();
 
-  //   Map<String, dynamic>? dados = snapshot.data as Map<String, dynamic>;
-  //   _controllerNome.text = dados["nome"];
-  //   if (dados["urlImg"] != null) {
-  //     urlRec = dados["urlImg"];
-  //   }
-  // }
+    Map<String, dynamic>? dados = snapshot.data as Map<String, dynamic>;
+    _controllerNome.text = dados["nome"];
+    if (dados["urlImg"] != null) {
+      urlRec = dados["urlImg"];
+    }
+  }
 
-  // _atualizarUrlImg(String url) {
-  //   FirebaseFirestore db = FirebaseFirestore.instance;
+  _atualizarUrlImg(String url) {
+    FirebaseFirestore db = FirebaseFirestore.instance;
 
-  //   Map<String, dynamic>? dadosAtt = {"urlImg": url};
+    Map<String, dynamic>? dadosAtt = {"urlImg": url};
 
-  //   db.collection("users").doc(_idLogged).update(dadosAtt);
-  // }
+    db.collection("users").doc(_idLogged).update(dadosAtt);
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _recuperarDados();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _recuperarDados();
+  }
 
   @override
   Widget build(BuildContext context) {

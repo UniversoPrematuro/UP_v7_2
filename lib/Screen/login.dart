@@ -1,10 +1,11 @@
-// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison
+// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison, non_constant_identifier_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
 
+import 'edit_profile.dart';
 import 'profile.dart';
 
 import '../Classes/user.dart';
@@ -68,9 +69,7 @@ class _LoginState extends State<Login> {
   Future _verificarUsuarioLogado() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
-
-
-    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +112,7 @@ class _LoginState extends State<Login> {
                 TextField(
                   // INPUT SENHA
                   keyboardType: TextInputType.text,
+                  obscureText: true,
                   style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -127,17 +127,11 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-
-                        if (_validarCampos() == true) {
-
-
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()));
-                        }                      
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfile()));
+                      },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(
@@ -148,25 +142,7 @@ class _LoginState extends State<Login> {
                         "Entrar",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                    )),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 55),
-                //   child: Center(
-                //     child: GestureDetector(
-                //       child: const Text(
-                //         "Não tem conta? Cadastre-se",
-                //         style: TextStyle(
-                //             color: Colors.white, fontWeight: FontWeight.w900),
-                //       ),
-                //       onTap: () {
-                //         Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) => const Register()));
-                //       },
-                //     ),
-                //   ),
-                // )
+                    ))
               ],
             ),
           ),
@@ -175,5 +151,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-
