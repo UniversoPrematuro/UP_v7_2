@@ -1,10 +1,11 @@
-// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison
+// ignore_for_file: unused_import, unused_field, unused_element, unnecessary_null_comparison, non_constant_identifier_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
 
+import 'edit_profile.dart';
 import 'profile.dart';
 
 import '../Classes/user.dart';
@@ -68,9 +69,7 @@ class _LoginState extends State<Login> {
   Future _verificarUsuarioLogado() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
-
-
-    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,25 +127,11 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-<<<<<<< HEAD
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Profile()));
+                                builder: (context) => const EditProfile()));
                       },
-=======
-
-                        if (_validarCampos() == true) {
-
-
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()));
-                        }                      
-
->>>>>>> upstream/main
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(
@@ -157,7 +142,7 @@ class _LoginState extends State<Login> {
                         "Entrar",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                    )),
+                    ))
               ],
             ),
           ),
@@ -166,5 +151,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-
