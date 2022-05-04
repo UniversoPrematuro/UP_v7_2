@@ -145,13 +145,13 @@ class _EditProfileState extends State<EditProfile> {
                     TextButton(
                       child: const Text("Câmera"),
                       onPressed: () {
-                        // _recuperarImagem("camera");
+                        _recuperarImagem("camera");
                       },
                     ),
                     TextButton(
                       child: const Text("Galeria"),
                       onPressed: () {
-                        // _recuperarImagem("galeria");
+                        _recuperarImagem("galeria");
                       },
                     )
                   ],
