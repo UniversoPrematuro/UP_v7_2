@@ -24,9 +24,9 @@ class _EditProfileState extends State<EditProfile> {
   File? _imagem;
   late String _idLogged;
   bool _statusUpload = false;
-  late String urlRec;
+  late String? urlRec;
 
-  Future _recuperarImagem(origemImagem) async {
+  _recuperarImagem(origemImagem) async {
     File? imagemSelec;
 
     final ImagePicker _picker = ImagePicker();
@@ -68,12 +68,21 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  Future _recuperarURL(TaskSnapshot taskSnapshot) async {
+  _recuperarUrlImg(TaskSnapshot taskSnapshot) async {
     String url = await taskSnapshot.ref.getDownloadURL();
     _atualizarUrlImg(url);
     setState(() {
       urlRec = url;
     });
+  }
+
+  _atualizarNome() {
+    String nome = _controllerNome.text;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> dadosAtualizar = {"nome": nome};
+
+    db.collection("users").doc(_idLogged).update(dadosAtualizar);
   }
 
   _recuperarDados() async {
@@ -95,9 +104,9 @@ class _EditProfileState extends State<EditProfile> {
   _atualizarUrlImg(String url) {
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    Map<String, dynamic>? dadosAtt = {"urlImg": url};
+    Map<String, dynamic>? imageAtt = {"urlImg": url};
 
-    db.collection("users").doc(_idLogged).update(dadosAtt);
+    db.collection("users").doc(_idLogged).update(imageAtt);
   }
 
   @override
@@ -120,17 +129,16 @@ class _EditProfileState extends State<EditProfile> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                _statusUpload ? const CircularProgressIndicator() : Container(),
                 Container(
                   padding: const EdgeInsets.all(16),
-                  child: _statusUpload
-                      ? const CircularProgressIndicator()
-                      : Container(),
                 ),
-                // CircleAvatar(
-                //     radius: 100,
-                //     backgroundColor: Colors.grey,
-                //     backgroundImage:
-                //         urlRec != null ? NetworkImage(urlRec) : null),
+                CircleAvatar(
+                    radius: 100,
+                    backgroundImage: _imagem != null
+                        ? NetworkImage(
+                            _recuperarUrlImg(_atualizarUrlImg(urlRec!)))
+                        : null),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -256,7 +264,7 @@ class _EditProfileState extends State<EditProfile> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: () {
-                      // _atualizarNomeFirestore();
+                      _atualizarNome();
                     },
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
