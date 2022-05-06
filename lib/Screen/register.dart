@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, unused_local_variable
+// ignore_for_file: unused_element, unused_local_variable, avoid_types_as_parameter_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +8,7 @@ import 'package:universoprem_v7_2/Classes/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 
+import 'edit_profile.dart';
 import 'home.dart';
 
 class Register extends StatefulWidget {
@@ -19,43 +20,50 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   //Controladores
-  final TextEditingController _controllerNome = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerSenha = TextEditingController();
   String _errorMessage = "";
 
   _validarCampos() {
     //Recupera dados dos campos
-    String nome = _controllerNome.text;
     String email = _controllerEmail.text;
     String senha = _controllerSenha.text;
 
     Usuario usuario = Usuario();
-    usuario.nome = nome;
     usuario.senha = senha;
     usuario.email = email;
     var errorMessage = _errorMessage;
 
-    if (nome.isNotEmpty && nome.length >= 3) {
-      if (email.isNotEmpty && email.contains("@")) {
-        if (senha.isNotEmpty && senha.length >= 5) {
-          setState(() {
-            _errorMessage = "Usuário cadastrado com sucesso!";
-          });
-          _cadastrarUsuario(usuario);
-        } else {
-          setState(() {
-            _errorMessage = "Preencha a senha! digite mais de 6 caracteres";
-          });
-        }
+    // if (email.isNotEmpty && email.contains("@")) {
+    //   _cadastrarUsuario(usuario);
+    // } else {
+    //   setState(() {
+    //     _errorMessage = "Insira um e-mail válido";
+    //   });
+    // }
+
+    // if (senha.isNotEmpty && senha.length >= 5) {
+    //   _cadastrarUsuario(usuario);
+    // } else {
+    //   setState(() {
+    //     _errorMessage = "Insira uma senha válida";
+    //   });
+    // }
+
+    if (email.isNotEmpty && email.contains("@")) {
+      if (senha.isNotEmpty && senha.length >= 5) {
+        setState(() {
+          _errorMessage = "Usuário cadastrado com sucesso!";
+        });
+        _cadastrarUsuario;
       } else {
         setState(() {
-          _errorMessage = "Preencha o E-mail utilizando @";
+          _errorMessage = "Senha inválida! Digite mais de 5 caracteres";
         });
       }
     } else {
       setState(() {
-        _errorMessage = "Preencha o Nome";
+        _errorMessage = "E-mail inválido!";
       });
     }
   }
@@ -148,13 +156,10 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         _validarCampos();
-
-                        if (_validarCampos() == true) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()));
-                        }
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfile()));
                       },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -170,7 +175,8 @@ class _RegisterState extends State<Register> {
                 Center(
                   child: Text(
                     _errorMessage,
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 0, 0), fontSize: 20),
                   ),
                 )
               ],
