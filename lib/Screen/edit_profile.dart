@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:universoprem_v7_2/Screen/profile.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -69,18 +70,26 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   _recuperarUrlImg(TaskSnapshot taskSnapshot) async {
-    String url = await taskSnapshot.ref.getDownloadURL();
+    String? url = await taskSnapshot.ref.getDownloadURL();
     _atualizarUrlImg(url);
     setState(() {
       urlRec = url;
     });
   }
 
-  _atualizarNome() {
+  _atualizarDados() {
     String nome = _controllerNome.text;
+    String nomeMae = _controllerNomeMae.text;
+    String birth = _controllerBirth.text;
+    String gender = _controllerGender.text;
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    Map<String, dynamic> dadosAtualizar = {"nome": nome};
+    Map<String, dynamic> dadosAtualizar = {
+      "nome": nome,
+      "nome mae": nomeMae,
+      "Nascimento": birth,
+      "sexo": gender
+    };
 
     db.collection("users").doc(_idLogged).update(dadosAtualizar);
   }
@@ -96,6 +105,9 @@ class _EditProfileState extends State<EditProfile> {
 
     Map<String, dynamic>? dados = snapshot.data as Map<String, dynamic>;
     _controllerNome.text = dados["nome"];
+    _controllerNomeMae.text = dados["nome da mãe"];
+    _controllerBirth.text = dados["Data de nasc."];
+    _controllerGender.text = dados["Sexo"];
     if (dados["urlImg"] != null) {
       urlRec = dados["urlImg"];
     }
@@ -133,12 +145,11 @@ class _EditProfileState extends State<EditProfile> {
                 Container(
                   padding: const EdgeInsets.all(16),
                 ),
-                CircleAvatar(
-                    radius: 100,
-                    backgroundImage: _imagem != null
-                        ? NetworkImage(
-                            _recuperarUrlImg(_atualizarUrlImg(urlRec!)))
-                        : null),
+                // CircleAvatar(
+                //     radius: 100,
+                //     backgroundImage: urlRec! != null
+                //         ? NetworkImage(_atualizarUrlImg(urlRec!))
+                //         : null),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -264,7 +275,12 @@ class _EditProfileState extends State<EditProfile> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: () {
-                      _atualizarNome();
+                      _atualizarDados();
+                      _recuperarDados();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const Profile())));
                     },
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),

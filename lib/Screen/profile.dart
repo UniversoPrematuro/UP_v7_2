@@ -130,140 +130,236 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Editar Perfil"),
+      appBar: AppBar(
+        title: const Text('Profile'),
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(255, 101, 187, 0),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {},
         ),
-        body: Container(
-          decoration:
-              const BoxDecoration(color: Color.fromARGB(255, 255, 193, 143)),
-          padding: const EdgeInsets.all(16),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  child: _uploadImage()
-                      ? const CircularProgressIndicator()
-                      : Container(),
-                ),
-                CircleAvatar(
-                    radius: 100,
-                    backgroundImage: _imagem != null
-                        ? NetworkImage(_recuperarURL(_atualizarUrlImg(urlRec)))
-                        : null),
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(top: 16),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 2,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 101, 187, 0),
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(32),
+                  bottomLeft: Radius.circular(32)),
+            ),
+            child: Column(
+              children: <Widget>[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    TextButton(
-                      child: const Text("Câmera"),
-                      onPressed: () {
-                        _recuperarImagem("camera");
-                      },
-                    ),
-                    TextButton(
-                      child: const Text("Galeria"),
-                      onPressed: () {
-                        _recuperarImagem("galeria");
-                      },
-                    ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: TextField(
-                        controller: _controllerNome,
-                        autofocus: true,
-                        keyboardType: TextInputType.text,
-                        style: const TextStyle(fontSize: 20),
-                        decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            hintText: "Nome",
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32))),
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Column(
+                        children: const <Widget>[
+                          Text(
+                            'Familiar',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            '12',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: TextField(
-                        controller: _controllerNome,
-                        autofocus: true,
-                        keyboardType: TextInputType.text,
-                        style: const TextStyle(fontSize: 20),
-                        /*onChanged: (texto){
-                      _atualizarNomeFirestore(texto);
-                    },*/
-                        decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            hintText: "Mãe",
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32))),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: TextField(
-                        controller: _controllerBirth,
-                        autofocus: true,
-                        keyboardType: TextInputType.datetime,
-                        style: const TextStyle(fontSize: 20),
-                        decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            hintText: "Data de Nascimento",
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32))),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: TextField(
-                        controller: _controllerGender,
-                        autofocus: true,
-                        keyboardType: TextInputType.text,
-                        style: const TextStyle(fontSize: 20),
-                        decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            hintText: "Sexo",
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32))),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16, bottom: 10),
-                      child: ElevatedButton(
-                        child: const Text(
-                          "Salvar",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                    Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.fill, image: NetworkImage(urlRec)),
                         ),
-                        onPressed: () {
-                          _atualizarNomeFirestore();
-                          _atualizarNome();
-                          // _atualizarBirth();
-                          // _atualizarNomeMae();
-                          // _atualizarGender();
-                        },
-                        style: TextButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(22)),
-                            backgroundColor:
-                                const Color.fromARGB(255, 101, 187, 88)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: Column(
+                            children: const <Widget>[
+                              Text(
+                                'Following',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                '18',
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ))
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text(
+                    "ID: 14552566",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 16, bottom: 32),
+                  child: Text(
+                    'Herman Jimenez',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.group_add,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Friends',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
+                      Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.group,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Groups',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.videocam,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Videos',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Likes',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height / 3,
+            padding: const EdgeInsets.all(42),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.table_chart,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          'Leaders',
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.show_chart,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          'Level up',
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.card_giftcard,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          'Leaders',
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        )
+                      ],
                     ),
                   ],
                 ),
-              ]),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.code,
+                          color: Colors.grey,
+                        ),
+                        Text('QR code')
+                      ],
+                    ),
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.blur_circular,
+                          color: Colors.grey,
+                        ),
+                        Text('Daily bonus')
+                      ],
+                    ),
+                    Column(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        Text('Visitors')
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-        ));
+          )
+        ],
+      ),
+    );
   }
 }
