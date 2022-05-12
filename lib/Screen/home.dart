@@ -34,8 +34,10 @@ class Home extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 500, left: 13),
+              
+              padding: const EdgeInsets.only(top: 650, left: 18),
               child: ElevatedButton(
+                
                 onPressed: (() {
                   Navigator.push(
                       context,
@@ -52,6 +54,7 @@ class Home extends StatelessWidget {
                         const EdgeInsets.symmetric(
                             vertical: 12.5, horizontal: 40.0))),
                 child: GestureDetector(
+                  
                   child: const Text(
                     "Primeira vez no Universo Prematuro?",
                     style: TextStyle(
@@ -63,7 +66,7 @@ class Home extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 445, left: 45),
+              padding: const EdgeInsets.only(top: 590, left: 45),
               child: ElevatedButton(
                 onPressed: (() {
                   Navigator.push(context,
