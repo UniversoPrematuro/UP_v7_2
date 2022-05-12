@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:universoprem_v7_2/Screen/edit_profile.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -24,119 +25,106 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _controllerGender = TextEditingController();
   final TextEditingController _controllerUser = TextEditingController();
 
+  //  File? _imagem;
+  //  String? _idLogged;
+  //  late bool _statusUpload = false;
+  //  late String urlRec;
 
-  
- 
+  //  Future _recuperarImagem(origemImagem) async {
+  //    late File imagemSelec;
 
-  File? _imagem;
-  late String _idLogged;
-  bool _statusUpload = false;
-  late String urlRec;
+  //    final ImagePicker _picker = ImagePicker();
+  //    switch (origemImagem) {
+  //      case "camera":
+  //        imagemSelec =
+  //            (await _picker.pickImage(source: ImageSource.camera)) as File;
+  //        break;
+  //      case "galeria":
+  //        imagemSelec =
+  //            (await _picker.pickImage(source: ImageSource.gallery)) as File;
+  //        break;
+  //    }
+  //    setState(() {
+  //      _imagem = imagemSelec;
+  //      _uploadImage();
+  //    });
+  //  }
 
-   Future _recuperarImagem(origemImagem) async {
-    late File imagemSelec;
+  //  _uploadImage() async {
+  //    FirebaseStorage storage = FirebaseStorage.instance;
+  //    Reference pastaRaiz = storage.ref();
+  //    Reference arquivo = pastaRaiz.child("perfil").child(_idLogged! + "jpg");
+  //    //upload image
+  //    UploadTask task = arquivo.putFile(_imagem!);
 
-     final ImagePicker _picker = ImagePicker();
-     switch (origemImagem) {
-       case "camera":
-         imagemSelec =
-             (await _picker.pickImage(source: ImageSource.camera)) as File;
-         break;
-       case "galeria":
-         imagemSelec =
-             (await _picker.pickImage(source: ImageSource.gallery)) as File;
-         break;
-     }
-     setState(() {
-       _imagem = imagemSelec;
-       _uploadImage();
-     });
-   }
+  //    //controlar prog
+  //    task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
+  //      if (taskSnapshot.state == TaskState.running) {
+  //        setState(() {
+  //          _statusUpload = true;
+  //        });
+  //      } else if (taskSnapshot.state == TaskState.success) {
+  //        _recuperarImagem(taskSnapshot);
+  //        setState(() {
+  //          _statusUpload = false;
+  //        });
+  //      }
+  //    });
+  //  }
 
-   Future _uploadImage() async {
-     FirebaseStorage storage = FirebaseStorage.instance;
-     Reference pastaRaiz = storage.ref();
-     Reference arquivo = pastaRaiz.child("perfil").child(_idLogged + "jpg");
-     //upload image
-     UploadTask task = arquivo.putFile(_imagem!);
+  //  _recuperarURL(TaskSnapshot taskSnapshot) async {
+  //    String url = await taskSnapshot.ref.getDownloadURL();
+  //    _atualizarUrlImg(url);
+  //    setState(() {
+  //      urlRec = url;
+  //    });
+  //  }
 
-     //controlar prog
-     task.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
-       if (taskSnapshot.state == TaskState.running) {
-         setState(() {
-           _statusUpload = true;
-         });
-       } else if (taskSnapshot.state == TaskState.success) {
-         _recuperarImagem(taskSnapshot);
-         setState(() {
-           _statusUpload = false;
-         });
-       }
-     });
-   }
+  //  _recuperarDados() async {
+  //    FirebaseAuth auth = FirebaseAuth.instance;
+  //    User logged = (auth.currentUser) as User;
+  //    _idLogged = logged.uid;
 
-   _recuperarURL(TaskSnapshot taskSnapshot) async {
-     String url = await taskSnapshot.ref.getDownloadURL();
-     _atualizarUrlImg(url);
-     setState(() {
-       urlRec = url;
-     });
-   }
+  //    FirebaseFirestore db = FirebaseFirestore.instance;
+  //    DocumentSnapshot snapshot =
+  //        await db.collection("users").doc(_idLogged).get();
 
-   _recuperarDados() async {
-     FirebaseAuth auth = FirebaseAuth.instance;
-     User logged = (auth.currentUser) as User;
-     _idLogged = logged.uid;
+  //    Map<String, dynamic> dados = snapshot.data as Map<String, dynamic>;
+  //    _controllerNome.text = dados["nome"];
+  //    if (dados["urlImg"] != null) {
+  //      urlRec = dados["urlImg"];
+  //    }
+  //  }
 
-     FirebaseFirestore db = FirebaseFirestore.instance;
-     DocumentSnapshot snapshot =
-         await db.collection("users").doc(_idLogged).get();
+  //  _atualizarUrlImg(String url) {
+  //    FirebaseFirestore db = FirebaseFirestore.instance;
 
-     Map<String, dynamic> dados = snapshot.data as Map<String, dynamic>;
-     _controllerNome.text = dados["nome"];
-     if (dados["urlImg"] != null) {
-       urlRec = dados["urlImg"];
-     }
-   }
+  //    Map<String, dynamic> dadosAtt = {"urlImg": url};
 
-    _atualizarUrlImg(String url) {
-      FirebaseFirestore db = FirebaseFirestore.instance;
+  //    db.collection("users").doc(_idLogged).update(dadosAtt);
+  //  }
 
-      Map<String, dynamic> dadosAtt = {"urlImg": url};
+  //  _atualizarNome() {
+  //    String name = _controllerNome.text;
+  //    FirebaseFirestore db = FirebaseFirestore.instance;
 
-      db.collection("users").doc(_idLogged).update(dadosAtt);
-    }
+  //    Map<String, dynamic> dadosAtualizar = {"name": name};
 
-   _atualizarNome() {
-     String name = _controllerNome.text;
-     FirebaseFirestore db = FirebaseFirestore.instance;
+  //    db.collection("users").doc(_idLogged).update(dadosAtualizar);
+  //  }
 
-     Map<String, dynamic> dadosAtualizar = {"name": name};
+  //  @override
+  //  void initState() {
+  //    super.initState();
 
-     db.collection("users").doc(_idLogged).update(dadosAtualizar);
-   }
-
-
-  @override
-  void initState() {
-    super.initState();
-
-    _recuperarDadosUsuario();
-  }
+  //    _recuperarDados();
+  //  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
 
-
-        title: const Text("Editar Perfil"),
-      ),
-      body: Container(
-
-        title: const Text("Cadastro"),
-        backgroundColor: const Color.fromARGB(255, 255, 193, 143),
-        elevation: 0,
 
         title: const Text("Editar Perfil"),
       ),
@@ -149,45 +137,10 @@ class _ProfileState extends State<Profile> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(16),
-
-                  child: _subindoImagem
-                      ? const CircularProgressIndicator()
-                      : Container(),
-                ),
-                 CircleAvatar(
-                     radius: 100,
-                     backgroundImage: _imagem != null
-                         ? NetworkImage(_recuperarURL(_atualizarUrlImg(urlRec)))
-                         : null),
-
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    TextButton(
-                      child: const Text("Câmera"),
-                      onPressed: () {
-
-                       
-
-                        _recuperarImagem("camera");
-
-                      },
-                    ),
-                    TextButton(
-                      child: const Text("Galeria"),
-                      onPressed: () {
-
-                        _recuperarImagem(_subindoImagem);
-                      },
-                    )
-                  ],
-
-                        _recuperarImagem("galeria");
-                      },
-                    )
-                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[                    
+                  ]
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -212,8 +165,6 @@ class _ProfileState extends State<Profile> {
                   child: TextField(
 
                     controller: _controllerNome,
-=======
-                    controller: _controllerNomeMae,
 
                     autofocus: true,
                     keyboardType: TextInputType.text,
@@ -233,7 +184,6 @@ class _ProfileState extends State<Profile> {
                 ),
                 Padding(
 
-=======
                   padding: const EdgeInsets.only(bottom: 8),
                   child: TextField(
                     controller: _controllerBirth,
@@ -276,9 +226,6 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: () {
-                      _atualizarNomeFirestore();
-=======
-                      _atualizarNome();
                       // _atualizarBirth();
                       // _atualizarNomeMae();
                       // _atualizarGender();

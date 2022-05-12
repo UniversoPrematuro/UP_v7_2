@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:universoprem_v7_2/Screen/profile.dart';
 import 'package:universoprem_v7_2/Screen/register.dart';
 
+import 'edit_profile.dart';
 import 'profile.dart';
 
 import '../Classes/user.dart';
@@ -68,9 +69,21 @@ class _LoginState extends State<Login> {
   Future _verificarUsuarioLogado() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
+    User usuarioLogado = auth.currentUser!;
+    if (usuarioLogado != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const EditProfile()));
+    }
+  }
 
-
+  @override
+  void initState() {
+    _verificarUsuarioLogado();
+    super.initState();
     
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,17 +140,11 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 16, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-
-                        if (_validarCampos() == true) {
-
-
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()));
-                        }                      
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfile()));
+                      },
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                           shape: RoundedRectangleBorder(
